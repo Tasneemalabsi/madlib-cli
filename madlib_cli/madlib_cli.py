@@ -1,6 +1,7 @@
 print("welcome to madlib code")
 
 my_file=""
+
 with open('assets/madlib.txt') as file:
     my_file=file.read()
     print(my_file)
@@ -32,6 +33,9 @@ edited_file = edited_file.replace("}","")
 
 print(edited_file)
 
+with open("assets/edited.txt", "w") as f:
+
+        f.write(edited_file)
 
     
     
