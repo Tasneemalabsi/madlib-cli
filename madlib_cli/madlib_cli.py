@@ -1,10 +1,14 @@
 print("welcome to madlib code")
 
 my_file=""
+path2 = 'assets/madlib.txt'
 
-with open('assets/madlib.txt') as file:
-    my_file=file.read()
-    print(my_file)
+
+    
+with open(path2) as file:
+     my_file=file.read()
+     print(my_file)      
+
 
 arr=[]
 myfile=my_file
@@ -12,10 +16,13 @@ while "}" in myfile:
     index1 = myfile.index("{")
     index2 = myfile.index("}")
     var = myfile[index1+1:index2]
-    arr.append(var)
+    
 
     myfile = myfile[index2+1:]
+print(myfile)
 print(arr)
+
+
 
 
 arr2 = []
