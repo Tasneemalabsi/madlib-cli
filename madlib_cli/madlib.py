@@ -57,24 +57,33 @@ def merge(parsed_text,user_input):
     final_results=parsed_text.format(*user_input)
     return(final_results)
 
+def write_the_file (saved_file):
+    """
+    this function saves the resulting file with the response from the user merged with the parsed text into a written text
+
+    """
+    with open("assets/edited.txt", "w") as f:
+
+        written_file=f.write(saved_file)
+    return written_file    
+
+
 
 if __name__ == "__main__":
     print("""
-         welcome to madlib game
+                                      welcome to madlib game
         
-          please read the file then follow the instruction to complete the game
+          please read the file then follow the instruction and add your response to each one to complete the game
     """)
     template_str = read_template(path2)
 
-    print(template_str)
     parsed_file, tupled_words = parse_template(template_str)
     tupled_text = take_input(tupled_words)
 
     final_results = merge(parsed_file,tupled_text)
     print(final_results)
+    write_the_file(final_results)
     
-    #save the resulting file with the response from the user merged with the parsed text into a written text
-    with open("assets/edited.txt", "w") as f:
-
-        f.write(final_results)
+    
+    
 
