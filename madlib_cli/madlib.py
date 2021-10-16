@@ -1,17 +1,12 @@
 import re
 
-print("""
-         welcome to madlib game
-        
-          please read the file then follow the instruction to complete the game
- """)
 
 my_file = ""
 path2 = 'assets/madlib.txt'
 
 
 def read_template(path):
-    "this function takes a path of file as an argument and read this file if the path works correctly, it returns a string which is the text in this file and returns an error (FileNotFoundError)if the file's path is not valid"
+    "This function takes a path of file as an argument and read this file if the path works correctly, it returns a string which is the text in this file and returns an error (FileNotFoundError)if the file's path is not valid"
     try:
         with open(path) as file:
             my_file = file.read()
@@ -19,15 +14,12 @@ def read_template(path):
 
     except:
         raise FileNotFoundError
-read_template(path2)
-print(read_template(path2))        
 
 
 def parse_template(text):
     """
-this function takes a string as an argument and follows a pattern to parse this string and take the words that matches this pattern from the string, then append these words to a list
-it returns the parsed text and the tuple of the words
-
+    This function takes a string as an argument and follows a pattern to parse this string and take the words that matches this pattern from the string, then append these words to a list
+    it returns the parsed text and the tuple of the words
     """
     arr = []
     #find the pattern that should followed to cut the string
@@ -46,16 +38,15 @@ it returns the parsed text and the tuple of the words
     return(new_text, tupled_words)
 
 
-
-parsed_file, arr = parse_template(read_template(path2))
-
-arr2 = []
-# iterate over the array of words to take the user input for everyone of them
-for i in range(len(arr)):
-    print(f"Enter a/an {arr[i]}")
-    user_response = input()
-    arr2.append(user_response)
-tupled_text2=tuple(arr2)
+def take_input(tupled_words):
+    '''Iterate over the array of words to take the user input for each one of them'''
+    arr = []
+    for i in range(len(tupled_words)):
+        print(f"Enter a/an {tupled_words[i]}")
+        user_response = input()
+        arr.append(user_response)
+    tupled_values=tuple(arr)
+    return tupled_values
     
 
 def merge(parsed_text,user_input):
@@ -66,13 +57,24 @@ def merge(parsed_text,user_input):
     final_results=parsed_text.format(*user_input)
     return(final_results)
 
-#save the resulting file with the response from the user merged with the parsed text into a written text
-with open("assets/edited.txt", "w") as f:
 
-        f.write(merge(parsed_file,tupled_text2))
+if __name__ == "__main__":
+    print("""
+         welcome to madlib game
         
+          please read the file then follow the instruction to complete the game
+    """)
+    template_str = read_template(path2)
 
-parse_template(read_template(path2))
-merge(parsed_file,tupled_text2)
-print(merge(parsed_file,tupled_text2))
+    print(template_str)
+    parsed_file, tupled_words = parse_template(template_str)
+    tupled_text = take_input(tupled_words)
+
+    final_results = merge(parsed_file,tupled_text)
+    print(final_results)
+    
+    #save the resulting file with the response from the user merged with the parsed text into a written text
+    with open("assets/edited.txt", "w") as f:
+
+        f.write(final_results)
 
